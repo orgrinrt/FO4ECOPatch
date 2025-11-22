@@ -105,7 +105,7 @@ namespace FO4ECOPatch
                     if (Settings.ArmorSettings.INNR)
                     {
                         var changedInnr = false;
-                        if (record == null || record.IsNull) continue;
+                        if (record == null) continue;
                         if (record.InstanceNaming == null) continue;
                         if (record.InstanceNaming.IsNull == null) continue;
                         var needToChange = record.InstanceNaming == null || record.InstanceNaming.IsNull == null || record.InstanceNaming.IsNull ||
