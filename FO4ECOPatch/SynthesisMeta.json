@@ -5,7 +5,7 @@
   "LongDescription": "Equipment and Crafting Overhaul (ECO) Patcher",
   "PreferredAutoVersioning": "Default",
   "RequiredMods": [
-    "ECO.esp"
+    "Dank_ECO.esp"
   ],
   "TargetedReleases": [
     "Fallout4"
