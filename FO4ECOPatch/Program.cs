@@ -104,43 +104,51 @@ namespace FO4ECOPatch
 
                     if (Settings.ArmorSettings.INNR)
                     {
-                        var changedInnr = false;
-                        if (record == null) continue;
-                        if (record.InstanceNaming == null) continue;
-                        if (record.InstanceNaming.IsNull == null) continue;
-                        var needToChange = record.InstanceNaming == null || record.InstanceNaming.IsNull == null || record.InstanceNaming.IsNull ||
-                                           state?.LinkCache == null || string.IsNullOrEmpty(record.InstanceNaming.TryResolve(state?.LinkCache)
-                                               .EditorID);
-                        if (!record.HasKeyword(Fallout4.Keyword.ArmorTypePower))
+                        try
                         {
-                            if (needToChange)
+                            var changedInnr = false;
+                            if (record == null) continue;
+                            if (record.InstanceNaming == null) continue;
+                            if (record.InstanceNaming.IsNull == null) continue;
+                            var needToChange = record.InstanceNaming == null || record.InstanceNaming.IsNull == null || record.InstanceNaming.IsNull ||
+                                               state?.LinkCache == null || string.IsNullOrEmpty(record.InstanceNaming.TryResolve(state?.LinkCache)
+                                                   .EditorID);
+                            if (!record.HasKeyword(Fallout4.Keyword.ArmorTypePower))
                             {
-                                newRecord.InstanceNaming.SetTo(Fallout4.InstanceNamingRules.dn_CommonArmor);
-                                changedInnr = true;
-                                modified = true;
+                                if (needToChange)
+                                {
+                                    newRecord.InstanceNaming.SetTo(Fallout4.InstanceNamingRules.dn_CommonArmor);
+                                    changedInnr = true;
+                                    modified = true;
+                                }
                             }
-                        }
-                        else
-                        {
-                            if (needToChange)
+                            else
                             {
-                                newRecord.InstanceNaming.SetTo(Fallout4.InstanceNamingRules.dn_PowerArmor);
-                                changedInnr = true;
-                                modified = true;
+                                if (needToChange)
+                                {
+                                    newRecord.InstanceNaming.SetTo(Fallout4.InstanceNamingRules.dn_PowerArmor);
+                                    changedInnr = true;
+                                    modified = true;
+                                }
                             }
-                        }
 
-                        if (changedInnr || needToChange)
-                            if (record.ObjectTemplates is null || record.ObjectTemplates.Count == 0)
-                            {
-                                if (newRecord.ObjectTemplates is null)
-                                    newRecord.ObjectTemplates = new ExtendedList<ObjectTemplate<Armor.Property>>();
-                                var obte = new ObjectTemplate<Armor.Property>();
-                                obte.AddonIndex = -1;
-                                obte.Default = true;
-                                newRecord.ObjectTemplates.Add(obte);
-                                modified = true;
-                            }
+                            if (changedInnr || needToChange)
+                                if (record.ObjectTemplates is null || record.ObjectTemplates.Count == 0)
+                                {
+                                    if (newRecord.ObjectTemplates is null)
+                                        newRecord.ObjectTemplates = new ExtendedList<ObjectTemplate<Armor.Property>>();
+                                    var obte = new ObjectTemplate<Armor.Property>();
+                                    obte.AddonIndex = -1;
+                                    obte.Default = true;
+                                    newRecord.ObjectTemplates.Add(obte);
+                                    modified = true;
+                                }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Error processing INNR for armor record {record?.FormKey}: {ex.Message}");
+                            continue;
+                        }
                     }
 
                     if (modified) state.PatchMod.Armors.Set(newRecord);
