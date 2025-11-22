@@ -105,9 +105,10 @@ namespace FO4ECOPatch
                     if (Settings.ArmorSettings.INNR)
                     {
                         var changedInnr = false;
-                        if (record == null) continue;
+                        if (record == null || record.IsNull) continue;
                         if (record.InstanceNaming == null) continue;
-                        var needToChange = record?.InstanceNaming == null || record?.InstanceNaming?.IsNull == null || record?.InstanceNaming?.IsNull ||
+                        if (record.InstanceNaming.IsNull == null) continue;
+                        var needToChange = record.InstanceNaming == null || record.InstanceNaming.IsNull == null || record.InstanceNaming.IsNull ||
                                            state?.LinkCache == null || string.IsNullOrEmpty(record.InstanceNaming.TryResolve(state?.LinkCache)
                                                .EditorID);
                         if (!record.HasKeyword(Fallout4.Keyword.ArmorTypePower))
