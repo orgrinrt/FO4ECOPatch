@@ -105,6 +105,8 @@ namespace FO4ECOPatch
                     if (Settings.ArmorSettings.INNR)
                     {
                         var changedInnr = false;
+                        if (record == null) continue;
+                        if (record.InstanceNaming == null) continue;
                         var needToChange = record.InstanceNaming == null || record.InstanceNaming.IsNull ||
                                            string.IsNullOrEmpty(record.InstanceNaming.TryResolve(state.LinkCache)
                                                .EditorID);
