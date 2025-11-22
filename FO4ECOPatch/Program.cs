@@ -90,6 +90,7 @@ namespace FO4ECOPatch
 
                     //IArmor newRecord = null;
                     var newRecord = record.DeepCopy();
+                    if (record == null) continue;
                     var modified = false;
                     if (Settings.ArmorSettings.AddLegendary)
                         if (!record.HasKeyword(Fallout4.Keyword.ap_Legendary))
