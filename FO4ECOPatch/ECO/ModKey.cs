@@ -6,5 +6,5 @@ namespace Mutagen.Bethesda.FormKeys.Fallout4;
 
 public static partial class ECO
 {
-    public readonly static ModKey ModKey = ModKey.FromNameAndExtension("ECO.esp");
+    public readonly static ModKey ModKey = ModKey.FromNameAndExtension("Dank_ECO.esp");
 }
