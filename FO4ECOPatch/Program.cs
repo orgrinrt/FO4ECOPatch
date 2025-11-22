@@ -107,7 +107,7 @@ namespace FO4ECOPatch
                         var changedInnr = false;
                         if (record == null) continue;
                         if (record.InstanceNaming == null) continue;
-                        var needToChange = (record?.InstanceNaming ?? null) == null || record?.InstanceNaming?.IsNull == null || record?.InstanceNaming?.IsNull ||
+                        var needToChange = record?.InstanceNaming == null || record?.InstanceNaming?.IsNull == null || record?.InstanceNaming?.IsNull ||
                                            state?.LinkCache == null || string.IsNullOrEmpty(record.InstanceNaming.TryResolve(state?.LinkCache)
                                                .EditorID);
                         if (!record.HasKeyword(Fallout4.Keyword.ArmorTypePower))
